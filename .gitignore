@@ -1,0 +1,17 @@
+node_modules/
+.next/
+out/
+dist/
+coverage/
+playwright-report/
+test-results/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+.local/
+packages/db/src/generated/
+storage-local/
+*.log
+.DS_Store
+Thumbs.db
