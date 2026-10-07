@@ -6,7 +6,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import {
   BarChart3, Boxes, ClipboardCheck, ClipboardList, Coins, Contact, DoorOpen, Factory, FileText, Hammer, History, Landmark,
   LayoutDashboard, LayoutGrid, ListTree, LogOut, Menu, PackageMinus, PackagePlus, Receipt, Ruler, Settings, ShieldCheck,
-  ShoppingCart, SlidersHorizontal, Store, Tags, Truck, UserRound, Users, Wallet, Warehouse, X, Calculator, PackageCheck,
+  ShoppingCart, SlidersHorizontal, Store, Tags, Truck, UserRound, Users, Wallet, Warehouse, X, Calculator, PackageCheck, ChevronDown,
 } from "@/components/ui/material-icons";
 import { useI18n } from "@/components/i18n-provider";
 import { LanguageSwitch } from "@/components/language-switch";
@@ -85,7 +85,7 @@ export function AppShell({ nav, user, children }: { nav: NavSection[]; user: { f
       </Link>
       {nav.map((section, i) => (
         <details key={`${i}-${currentSection}`} className="group mb-1" open={!section.labelKey || currentSection === section.labelKey}>
-          {section.labelKey ? <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl px-3 py-2 text-xs font-bold text-sidebar-muted hover:bg-muted [&::-webkit-details-marker]:hidden">{t(section.labelKey)}<span className="material-symbols-rounded text-base transition-transform group-open:rotate-180">expand_more</span></summary> : null}
+          {section.labelKey ? <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl px-3 py-2 text-xs font-bold text-sidebar-muted hover:bg-muted [&::-webkit-details-marker]:hidden">{t(section.labelKey)}<ChevronDown aria-hidden="true" className="size-4 transition-transform group-open:rotate-180" /></summary> : null}
           <div className="grid gap-0.5">{section.items.map((item) => {
             const Icon = ICONS[item.icon];
             const active = isActive(item.href);
