@@ -13,7 +13,7 @@
   },
   "scripts": {
     "dev": "npm run dev -w @edge/web",
-    "build": "npm run db:generate && npm run build -w @edge/web",
+    "build": "npm run build -w @edge/web",
     "start": "npm run start -w @edge/web",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "lint": "npm run lint --workspaces --if-present",

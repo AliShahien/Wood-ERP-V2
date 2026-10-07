@@ -1,0 +1,6604 @@
+{
+ "openapi": "3.1.0",
+ "info": {
+  "title": "Edge Wood ERP API",
+  "version": "1.0.0",
+  "description": "Cookie-session authenticated REST API. Mutations require an Origin header equal to APP_URL. Errors: { error: { code, messageKey, details } }."
+ },
+ "components": {
+  "securitySchemes": {
+   "session": {
+    "type": "apiKey",
+    "in": "cookie",
+    "name": "edge_session"
+   }
+  }
+ },
+ "security": [
+  {
+   "session": []
+  }
+ ],
+ "paths": {
+  "/api/health": {
+   "get": {
+    "summary": "/api/health",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/attachments": {
+   "get": {
+    "summary": "Object.fromEntries, attachments.listAttachments",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/attachments/{id}": {
+   "delete": {
+    "summary": "attachments.deleteAttachment",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/attachments/{id}/download": {
+   "get": {
+    "summary": "attachments.attachmentUrl",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/attachments/upload": {
+   "post": {
+    "summary": "attachments.uploadAttachment",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/audit-logs": {
+   "get": {
+    "summary": "auditLogs.listAuditLogs, Object.fromEntries",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/auth/change-password": {
+   "post": {
+    "summary": "users.changeOwnPassword",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/auth/login": {
+   "post": {
+    "summary": "z.object, z.string, cookies.set",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/auth/logout": {
+   "post": {
+    "summary": "cookies.get, cookies.delete",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/auth/me": {
+   "get": {
+    "summary": "/api/v1/auth/me",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/boms": {
+   "get": {
+    "summary": "Object.fromEntries, bom.listBoms, bom.createBom",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "post": {
+    "summary": "Object.fromEntries, bom.listBoms, bom.createBom",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/boms/{id}": {
+   "get": {
+    "summary": "bom.getBom, bom.updateBom",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "put": {
+    "summary": "bom.getBom, bom.updateBom",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/boms/{id}/activate": {
+   "post": {
+    "summary": "bom.activateBom",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/boms/{id}/archive": {
+   "post": {
+    "summary": "bom.archiveBom",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/boms/{id}/copy": {
+   "post": {
+    "summary": "bom.copyBom",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/boms/{id}/preview": {
+   "post": {
+    "summary": "bom.previewBom",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/cash-accounts": {
+   "get": {
+    "summary": "cashAccounts.listCashAccounts, cashAccounts.createCashAccount",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "post": {
+    "summary": "cashAccounts.listCashAccounts, cashAccounts.createCashAccount",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/cash-accounts/{id}": {
+   "patch": {
+    "summary": "cashAccounts.updateCashAccount",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/cash-accounts/{id}/statement": {
+   "get": {
+    "summary": "Object.fromEntries, cashAccounts.cashAccountStatement",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/cron/run": {
+   "post": {
+    "summary": "headers.get, jobs.processJobs",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/customers": {
+   "get": {
+    "summary": "Object.fromEntries, customers.listCustomers, customers.createCustomer",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "post": {
+    "summary": "Object.fromEntries, customers.listCustomers, customers.createCustomer",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/customers/{id}": {
+   "get": {
+    "summary": "customers.getCustomer, customers.updateCustomer, customers.deleteCustomer",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "patch": {
+    "summary": "customers.getCustomer, customers.updateCustomer, customers.deleteCustomer",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "delete": {
+    "summary": "customers.getCustomer, customers.updateCustomer, customers.deleteCustomer",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/customers/{id}/addresses": {
+   "post": {
+    "summary": "customers.addAddress",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/customers/{id}/addresses/{addressId}": {
+   "delete": {
+    "summary": "customers.removeAddress",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "addressId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/customers/{id}/contacts": {
+   "post": {
+    "summary": "customers.addContact",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/customers/{id}/contacts/{contactId}": {
+   "delete": {
+    "summary": "customers.removeContact",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "contactId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/customers/{id}/statement": {
+   "get": {
+    "summary": "receivables.customerStatement",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/dashboard": {
+   "get": {
+    "summary": "dashboard.getDashboard",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/deliveries": {
+   "get": {
+    "summary": "Object.fromEntries, deliveries.listDeliveries",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/deliveries/{id}": {
+   "get": {
+    "summary": "deliveries.getDelivery",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/deliveries/{id}/cancel": {
+   "post": {
+    "summary": "deliveries.cancelDelivery",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/deliveries/{id}/complete": {
+   "post": {
+    "summary": "deliveries.completeDelivery",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/deliveries/{id}/installation": {
+   "post": {
+    "summary": "deliveries.updateInstallation",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/deliveries/{id}/schedule": {
+   "post": {
+    "summary": "deliveries.scheduleDelivery",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/deliveries/{id}/signature": {
+   "post": {
+    "summary": "deliveries.saveSignature",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/documents/{type}/{id}": {
+   "get": {
+    "summary": "documents.buildDocument, searchParams.get",
+    "parameters": [
+     {
+      "name": "type",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/expense-categories": {
+   "get": {
+    "summary": "expenses.listCategories, expenses.createCategory",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "post": {
+    "summary": "expenses.listCategories, expenses.createCategory",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/expense-categories/{id}": {
+   "patch": {
+    "summary": "expenses.updateCategory",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/expenses": {
+   "get": {
+    "summary": "Object.fromEntries, expenses.listExpenses, expenses.createExpense",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "post": {
+    "summary": "Object.fromEntries, expenses.listExpenses, expenses.createExpense",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/expenses/{id}": {
+   "get": {
+    "summary": "expenses.getExpense",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/expenses/{id}/cancel": {
+   "post": {
+    "summary": "expenses.cancelExpense",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/files/{path*}": {
+   "get": {
+    "summary": "searchParams.get",
+    "parameters": [
+     {
+      "name": "path",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/goods-receipts": {
+   "get": {
+    "summary": "Object.fromEntries, purchasing.listGoodsReceipts, purchasing.createGoodsReceipt",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "post": {
+    "summary": "Object.fromEntries, purchasing.listGoodsReceipts, purchasing.createGoodsReceipt",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/goods-receipts/{id}": {
+   "get": {
+    "summary": "purchasing.getGoodsReceipt",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/goods-receipts/{id}/post": {
+   "post": {
+    "summary": "purchasing.postGoodsReceipt",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/goods-receipts/{id}/reverse": {
+   "post": {
+    "summary": "purchasing.reverseGoodsReceipt",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/invoices": {
+   "get": {
+    "summary": "Object.fromEntries, receivables.listInvoices",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/invoices/{id}": {
+   "get": {
+    "summary": "receivables.getInvoice",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/invoices/{id}/cancel": {
+   "post": {
+    "summary": "receivables.cancelInvoice",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/invoices/{id}/post": {
+   "post": {
+    "summary": "receivables.postInvoice",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/manufacturing-orders": {
+   "get": {
+    "summary": "Object.fromEntries, manufacturing.listManufacturingOrders",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/manufacturing-orders/{id}": {
+   "get": {
+    "summary": "manufacturing.getManufacturingOrder, manufacturing.updateManufacturingOrder",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "patch": {
+    "summary": "manufacturing.getManufacturingOrder, manufacturing.updateManufacturingOrder",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/manufacturing-orders/{id}/approve": {
+   "post": {
+    "summary": "manufacturing.approveManufacturingOrder",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/manufacturing-orders/{id}/cancel": {
+   "post": {
+    "summary": "manufacturing.cancelManufacturingOrder",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/manufacturing-orders/{id}/issues": {
+   "post": {
+    "summary": "manufacturing.createMaterialIssue",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/manufacturing-orders/{id}/quality-checks": {
+   "post": {
+    "summary": "manufacturing.recordQualityCheck",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/manufacturing-orders/{id}/recheck": {
+   "post": {
+    "summary": "manufacturing.recheckMaterials",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/manufacturing-orders/{id}/start": {
+   "post": {
+    "summary": "manufacturing.startProduction",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/manufacturing-orders/{id}/variance": {
+   "get": {
+    "summary": "manufacturing.costVariance",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/material-categories": {
+   "get": {
+    "summary": "materials.listMaterialCategories, materials.createMaterialCategory",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "post": {
+    "summary": "materials.listMaterialCategories, materials.createMaterialCategory",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/material-categories/{id}": {
+   "patch": {
+    "summary": "materials.updateMaterialCategory",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/material-issues": {
+   "get": {
+    "summary": "Object.fromEntries, manufacturing.listMaterialIssues",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/material-issues/{id}": {
+   "get": {
+    "summary": "manufacturing.getMaterialIssue",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/material-issues/{id}/post": {
+   "post": {
+    "summary": "manufacturing.postMaterialIssue",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/material-issues/{id}/reverse": {
+   "post": {
+    "summary": "manufacturing.reverseMaterialIssue",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/materials": {
+   "get": {
+    "summary": "Object.fromEntries, materials.listMaterials, materials.createMaterial",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "post": {
+    "summary": "Object.fromEntries, materials.listMaterials, materials.createMaterial",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/materials/{id}": {
+   "get": {
+    "summary": "materials.getMaterial, materials.updateMaterial, materials.deleteMaterial",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "patch": {
+    "summary": "materials.getMaterial, materials.updateMaterial, materials.deleteMaterial",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "delete": {
+    "summary": "materials.getMaterial, materials.updateMaterial, materials.deleteMaterial",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/measurements": {
+   "get": {
+    "summary": "Object.fromEntries, measurements.listMeasurements, measurements.createMeasurement",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "post": {
+    "summary": "Object.fromEntries, measurements.listMeasurements, measurements.createMeasurement",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/measurements/{id}": {
+   "get": {
+    "summary": "measurements.getMeasurement, measurements.reviseMeasurement",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "put": {
+    "summary": "measurements.getMeasurement, measurements.reviseMeasurement",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/measurements/{id}/approve": {
+   "post": {
+    "summary": "measurements.approveMeasurement",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/measurements/{id}/cancel": {
+   "post": {
+    "summary": "measurements.cancelMeasurement",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/notifications": {
+   "get": {
+    "summary": "Object.fromEntries, notifications.listMyNotifications",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/notifications/count": {
+   "get": {
+    "summary": "notifications.unreadCount",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/notifications/read": {
+   "post": {
+    "summary": "notifications.markRead",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/openapi.json": {
+   "get": {
+    "summary": "/api/v1/openapi.json",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/operations/{id}": {
+   "patch": {
+    "summary": "manufacturing.updateOperation",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/payments": {
+   "get": {
+    "summary": "Object.fromEntries, receivables.listPayments, receivables.createPayment",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "post": {
+    "summary": "Object.fromEntries, receivables.listPayments, receivables.createPayment",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/payments/{id}": {
+   "get": {
+    "summary": "receivables.getPayment",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/payments/{id}/reverse": {
+   "post": {
+    "summary": "receivables.reversePayment",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/permissions": {
+   "get": {
+    "summary": "roles.listPermissionCatalog",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/product-categories": {
+   "get": {
+    "summary": "products.listProductCategories, products.createProductCategory",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "post": {
+    "summary": "products.listProductCategories, products.createProductCategory",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/product-categories/{id}": {
+   "patch": {
+    "summary": "products.updateProductCategory",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/product-images/{id}": {
+   "get": {
+    "summary": "products.readProductImage",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/product-options": {
+   "get": {
+    "summary": "Object.fromEntries, products.listOptions, products.createOption",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "post": {
+    "summary": "Object.fromEntries, products.listOptions, products.createOption",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/product-options/{id}": {
+   "patch": {
+    "summary": "products.updateOption",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/production-board": {
+   "get": {
+    "summary": "productionStages.productionBoard",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/production-stages": {
+   "get": {
+    "summary": "productionStages.listStages, productionStages.createStage",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "post": {
+    "summary": "productionStages.listStages, productionStages.createStage",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/production-stages/{id}": {
+   "patch": {
+    "summary": "productionStages.updateStage",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/products": {
+   "get": {
+    "summary": "Object.fromEntries, products.listProducts, products.createProduct",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "post": {
+    "summary": "Object.fromEntries, products.listProducts, products.createProduct",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/products/{id}": {
+   "get": {
+    "summary": "products.getProduct, products.updateProduct, products.deleteProduct",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "patch": {
+    "summary": "products.getProduct, products.updateProduct, products.deleteProduct",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "delete": {
+    "summary": "products.getProduct, products.updateProduct, products.deleteProduct",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/products/{id}/images": {
+   "post": {
+    "summary": "products.uploadProductImage",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/products/{id}/images/{imageId}": {
+   "delete": {
+    "summary": "products.deleteProductImage",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "imageId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/products/{id}/images/{imageId}/main": {
+   "post": {
+    "summary": "products.setMainImage",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     },
+     {
+      "name": "imageId",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/products/{id}/options": {
+   "put": {
+    "summary": "products.setProductOptions",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/profile": {
+   "patch": {
+    "summary": "users.updateOwnProfile, cookies.set",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/purchase-orders": {
+   "get": {
+    "summary": "Object.fromEntries, purchasing.listPurchaseOrders, purchasing.createPurchaseOrder",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "post": {
+    "summary": "Object.fromEntries, purchasing.listPurchaseOrders, purchasing.createPurchaseOrder",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/purchase-orders/{id}": {
+   "get": {
+    "summary": "purchasing.getPurchaseOrder, purchasing.updatePurchaseOrder",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "put": {
+    "summary": "purchasing.getPurchaseOrder, purchasing.updatePurchaseOrder",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/purchase-orders/{id}/approve": {
+   "post": {
+    "summary": "purchasing.transitionPurchaseOrder",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/purchase-orders/{id}/cancel": {
+   "post": {
+    "summary": "purchasing.transitionPurchaseOrder",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/purchase-orders/{id}/close": {
+   "post": {
+    "summary": "purchasing.transitionPurchaseOrder",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/purchase-orders/{id}/invoice-draft": {
+   "get": {
+    "summary": "purchasing.invoiceDraftFromPo",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/purchase-orders/{id}/return": {
+   "post": {
+    "summary": "purchasing.transitionPurchaseOrder",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/purchase-orders/{id}/submit": {
+   "post": {
+    "summary": "purchasing.transitionPurchaseOrder",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/purchase-requests": {
+   "get": {
+    "summary": "Object.fromEntries, purchasing.listPurchaseRequests, purchasing.createPurchaseRequest",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "post": {
+    "summary": "Object.fromEntries, purchasing.listPurchaseRequests, purchasing.createPurchaseRequest",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/purchase-requests/{id}": {
+   "get": {
+    "summary": "purchasing.getPurchaseRequest",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/purchase-requests/{id}/approve": {
+   "post": {
+    "summary": "purchasing.transitionPurchaseRequest",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/purchase-requests/{id}/cancel": {
+   "post": {
+    "summary": "purchasing.transitionPurchaseRequest",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/purchase-requests/{id}/reject": {
+   "post": {
+    "summary": "purchasing.transitionPurchaseRequest",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/purchase-requests/{id}/submit": {
+   "post": {
+    "summary": "purchasing.transitionPurchaseRequest",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/quotations": {
+   "get": {
+    "summary": "Object.fromEntries, quotations.listQuotations, quotations.createQuotation",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "post": {
+    "summary": "Object.fromEntries, quotations.listQuotations, quotations.createQuotation",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/quotations/{id}": {
+   "get": {
+    "summary": "quotations.getQuotation, quotations.updateQuotation",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "put": {
+    "summary": "quotations.getQuotation, quotations.updateQuotation",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/quotations/{id}/approve": {
+   "post": {
+    "summary": "quotations.approveQuotation",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/quotations/{id}/cancel": {
+   "post": {
+    "summary": "quotations.cancelQuotation",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/quotations/{id}/convert": {
+   "post": {
+    "summary": "salesOrders.convertQuotation",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/quotations/{id}/reject": {
+   "post": {
+    "summary": "quotations.rejectQuotation",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/quotations/{id}/return": {
+   "post": {
+    "summary": "quotations.returnToDraft",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/quotations/{id}/revise": {
+   "post": {
+    "summary": "quotations.reviseQuotation",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/quotations/{id}/submit": {
+   "post": {
+    "summary": "quotations.submitQuotation",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/quotations/preview": {
+   "post": {
+    "summary": "quotations.previewQuotation",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/reports": {
+   "get": {
+    "summary": "reports.availableReports",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/reports/{id}": {
+   "get": {
+    "summary": "Object.fromEntries, reports.runReport, documents.companyInfo",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/roles": {
+   "get": {
+    "summary": "roles.listRoles, roles.createRole",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "post": {
+    "summary": "roles.listRoles, roles.createRole",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/roles/{id}": {
+   "get": {
+    "summary": "roles.getRole, roles.updateRole, roles.deleteRole",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "patch": {
+    "summary": "roles.getRole, roles.updateRole, roles.deleteRole",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "delete": {
+    "summary": "roles.getRole, roles.updateRole, roles.deleteRole",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/sales-orders": {
+   "get": {
+    "summary": "Object.fromEntries, salesOrders.listSalesOrders",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/sales-orders/{id}": {
+   "get": {
+    "summary": "salesOrders.getSalesOrder",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/sales-orders/{id}/cancel": {
+   "post": {
+    "summary": "salesOrders.cancelSalesOrder",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/sales-orders/{id}/deliveries": {
+   "post": {
+    "summary": "deliveries.createDelivery, deliveries.deliverableLines",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "get": {
+    "summary": "deliveries.createDelivery, deliveries.deliverableLines",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/sales-orders/{id}/invoice": {
+   "post": {
+    "summary": "receivables.createInvoiceFromSalesOrder",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/sales-orders/{id}/manufacturing-orders": {
+   "post": {
+    "summary": "manufacturing.createFromSalesOrder",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/search": {
+   "get": {
+    "summary": "dashboard.globalSearch, searchParams.get",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/settings": {
+   "get": {
+    "summary": "settings.getSettings, settings.updateSettings",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "patch": {
+    "summary": "settings.getSettings, settings.updateSettings",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/showrooms": {
+   "get": {
+    "summary": "Object.fromEntries, showrooms.listShowrooms, showrooms.createShowroom",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "post": {
+    "summary": "Object.fromEntries, showrooms.listShowrooms, showrooms.createShowroom",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/showrooms/{id}": {
+   "get": {
+    "summary": "showrooms.getShowroom, showrooms.updateShowroom, showrooms.deleteShowroom",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "patch": {
+    "summary": "showrooms.getShowroom, showrooms.updateShowroom, showrooms.deleteShowroom",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "delete": {
+    "summary": "showrooms.getShowroom, showrooms.updateShowroom, showrooms.deleteShowroom",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/stock": {
+   "get": {
+    "summary": "Object.fromEntries, inventory.stockBalances",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/stock-adjustments": {
+   "get": {
+    "summary": "Object.fromEntries, inventory.listAdjustments, inventory.createAdjustment",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "post": {
+    "summary": "Object.fromEntries, inventory.listAdjustments, inventory.createAdjustment",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/stock-adjustments/{id}": {
+   "get": {
+    "summary": "inventory.getAdjustment",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/stock-adjustments/{id}/post": {
+   "post": {
+    "summary": "inventory.postAdjustment",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/stock-adjustments/{id}/reverse": {
+   "post": {
+    "summary": "inventory.reverseAdjustment",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/stock-transfers": {
+   "get": {
+    "summary": "Object.fromEntries, inventory.listTransfers, inventory.createTransfer",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "post": {
+    "summary": "Object.fromEntries, inventory.listTransfers, inventory.createTransfer",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/stock-transfers/{id}": {
+   "get": {
+    "summary": "inventory.getTransfer",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/stock-transfers/{id}/post": {
+   "post": {
+    "summary": "inventory.postTransfer",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/stock/movements": {
+   "get": {
+    "summary": "Object.fromEntries, inventory.stockMovements",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/supplier-invoices": {
+   "get": {
+    "summary": "Object.fromEntries, purchasing.listSupplierInvoices, purchasing.createSupplierInvoice",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "post": {
+    "summary": "Object.fromEntries, purchasing.listSupplierInvoices, purchasing.createSupplierInvoice",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/supplier-invoices/{id}": {
+   "get": {
+    "summary": "purchasing.getSupplierInvoice",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/supplier-invoices/{id}/cancel": {
+   "post": {
+    "summary": "purchasing.cancelSupplierInvoice",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/supplier-invoices/{id}/post": {
+   "post": {
+    "summary": "purchasing.postSupplierInvoice",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/supplier-payments": {
+   "get": {
+    "summary": "Object.fromEntries, purchasing.listSupplierPayments, purchasing.createSupplierPayment",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "post": {
+    "summary": "Object.fromEntries, purchasing.listSupplierPayments, purchasing.createSupplierPayment",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/supplier-payments/{id}": {
+   "get": {
+    "summary": "purchasing.getSupplierPayment",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/supplier-payments/{id}/reverse": {
+   "post": {
+    "summary": "purchasing.reverseSupplierPayment",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/suppliers": {
+   "get": {
+    "summary": "Object.fromEntries, suppliers.listSuppliers, suppliers.createSupplier",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "post": {
+    "summary": "Object.fromEntries, suppliers.listSuppliers, suppliers.createSupplier",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/suppliers/{id}": {
+   "get": {
+    "summary": "suppliers.getSupplier, suppliers.updateSupplier, suppliers.deleteSupplier",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "patch": {
+    "summary": "suppliers.getSupplier, suppliers.updateSupplier, suppliers.deleteSupplier",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "delete": {
+    "summary": "suppliers.getSupplier, suppliers.updateSupplier, suppliers.deleteSupplier",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/suppliers/{id}/contacts": {
+   "post": {
+    "summary": "suppliers.addSupplierContact",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/suppliers/{id}/statement": {
+   "get": {
+    "summary": "purchasing.supplierStatement",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/units": {
+   "get": {
+    "summary": "materials.listUnits, materials.createUnit",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "post": {
+    "summary": "materials.listUnits, materials.createUnit",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/units/{id}": {
+   "patch": {
+    "summary": "materials.updateUnit",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/users": {
+   "get": {
+    "summary": "users.listUsers, Object.fromEntries, users.createUser",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "post": {
+    "summary": "users.listUsers, Object.fromEntries, users.createUser",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/users/{id}": {
+   "get": {
+    "summary": "users.getUser, users.updateUser",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "patch": {
+    "summary": "users.getUser, users.updateUser",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/users/{id}/login-history": {
+   "get": {
+    "summary": "users.getLoginHistory, Object.fromEntries",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/users/{id}/reset-password": {
+   "post": {
+    "summary": "users.resetPassword",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/warehouses": {
+   "get": {
+    "summary": "Object.fromEntries, warehouses.listWarehouses, warehouses.createWarehouse",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "post": {
+    "summary": "Object.fromEntries, warehouses.listWarehouses, warehouses.createWarehouse",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/warehouses/{id}": {
+   "get": {
+    "summary": "warehouses.getWarehouse, warehouses.updateWarehouse, warehouses.deleteWarehouse",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "patch": {
+    "summary": "warehouses.getWarehouse, warehouses.updateWarehouse, warehouses.deleteWarehouse",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   },
+   "delete": {
+    "summary": "warehouses.getWarehouse, warehouses.updateWarehouse, warehouses.deleteWarehouse",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  },
+  "/api/v1/warehouses/{id}/locations": {
+   "post": {
+    "summary": "warehouses.addLocation",
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "required": true,
+      "schema": {
+       "type": "string"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK"
+     },
+     "401": {
+      "description": "UNAUTHENTICATED"
+     },
+     "403": {
+      "description": "FORBIDDEN"
+     },
+     "404": {
+      "description": "NOT_FOUND"
+     },
+     "409": {
+      "description": "CONFLICT / INVALID_TRANSITION / INSUFFICIENT_STOCK / IMMUTABLE"
+     },
+     "422": {
+      "description": "VALIDATION"
+     }
+    }
+   }
+  }
+ }
+}

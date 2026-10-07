@@ -1,0 +1,10 @@
+# Automatic HTTPS (Let's Encrypt) for the ERP domain.
+{$APP_DOMAIN} {
+	encode zstd gzip
+	request_body {
+		max_size 20MB
+	}
+	reverse_proxy web:3000 {
+		header_up X-Real-IP {remote_host}
+	}
+}
