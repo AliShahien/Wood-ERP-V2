@@ -14,8 +14,11 @@ export type Tx = Omit<Db, "$connect" | "$disconnect" | "$on" | "$transaction" | 
 
 export function createDb(connectionString = process.env.DATABASE_URL): Db {
   if (!connectionString) throw new Error("DATABASE_URL is not set");
+  // Verify the Supabase pooler certificate with its published root CA.
+  const ca = process.env.SUPABASE_DB_CA_CERT?.replace(/\\n/g, "\n");
   const adapter = new PrismaPg({
     connectionString,
+    ...(ca ? { ssl: { ca, rejectUnauthorized: true } } : {}),
     max: Number(process.env.DATABASE_POOL_MAX ?? 10),
     idleTimeoutMillis: 30_000,
   });
