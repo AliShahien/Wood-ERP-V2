@@ -93,7 +93,7 @@ export function RoleForm({ initial, catalog, readOnly, canDelete }: { initial?: 
   return (
     <form onSubmit={onSubmit} className="grid gap-4">
       <Card>
-        <CardContent className="grid gap-4 pt-5 sm:grid-cols-2 lg:grid-cols-4">
+        <CardContent className="grid gap-4 pt-5 sm:grid-cols-2">
           <Field label={t("common.code")} htmlFor="code">
             <Input id="code" name="code" defaultValue={initial?.code} required disabled={isEdit || readOnly} dir="ltr" pattern="[A-Za-z0-9_]+" />
           </Field>
@@ -108,7 +108,7 @@ export function RoleForm({ initial, catalog, readOnly, canDelete }: { initial?: 
               {(["ALL", "SHOWROOM", "OWN"] as const).map((s) => <option key={s} value={s}>{t(`scope.${s}`)}</option>)}
             </NativeSelect>
           </Field>
-          <Field label={t("roles.description")} htmlFor="description" className="sm:col-span-2 lg:col-span-4">
+          <Field label={t("roles.description")} htmlFor="description" className="sm:col-span-2">
             <Textarea id="description" name="description" defaultValue={initial?.description ?? ""} disabled={readOnly} rows={2} />
           </Field>
         </CardContent>
@@ -116,20 +116,20 @@ export function RoleForm({ initial, catalog, readOnly, canDelete }: { initial?: 
 
       <Card>
         <CardHeader><CardTitle>{t("roles.permissions")}</CardTitle></CardHeader>
-        <CardContent className="grid gap-0 divide-y">
+        <CardContent className="grid gap-3">
           {modules.map(([m, actions]) => {
             const all = actions.every((a) => selected.has(`${m}.${a}`));
             return (
-              <div key={m} className="grid gap-2 py-3 sm:grid-cols-[220px_1fr] sm:items-start">
+              <div key={m} className="grid gap-3 rounded-2xl border bg-muted/20 p-4 lg:grid-cols-[minmax(150px,220px)_1fr] lg:items-start">
                 <label className="flex items-center gap-2 text-sm font-medium">
                   <Checkbox checked={all} disabled={readOnly} onChange={() => toggleModule(m, actions)} aria-label={t("roles.selectAll")} />
                   {t(`permissions.modules.${m}`)}
                 </label>
-                <div className="flex flex-wrap gap-x-5 gap-y-2">
+                <div className="flex flex-wrap gap-2">
                   {actions.map((a) => {
                     const key = `${m}.${a}`;
                     return (
-                      <label key={key} className="flex items-center gap-1.5 text-sm text-muted-foreground" title={key}>
+                      <label key={key} className="flex min-h-10 items-center gap-2 rounded-lg border bg-card px-3 text-sm text-foreground" title={key}>
                         <Checkbox checked={selected.has(key)} disabled={readOnly} onChange={() => toggle(key)} />
                         {t(`permissions.actions.${a}`)}
                       </label>

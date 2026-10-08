@@ -50,12 +50,12 @@ export function StockDocForm({ kind, warehouses }: { kind: "adjustment" | "trans
   return (
     <form onSubmit={onSubmit} className="grid gap-4">
       <Card>
-        <CardContent className="grid gap-4 pt-5 sm:grid-cols-3">
+        <CardContent className="grid gap-5 pt-5 sm:grid-cols-2">
           {kind === "adjustment" ? (
             <>
               {whSelect("warehouseId", t("nav.warehouses"))}
               <Field label={t("inventory.reason")}><Input name="reason" required /></Field>
-              <label className="flex items-center gap-2 self-end pb-2 text-sm"><Checkbox checked={opening} onChange={(e) => setOpening(e.target.checked)} />{t("inventory.opening")}</label>
+              <label className="flex min-h-12 items-center gap-3 self-end rounded-xl border bg-muted/40 px-4 text-sm font-medium"><Checkbox checked={opening} onChange={(e) => setOpening(e.target.checked)} />{t("inventory.opening")}</label>
             </>
           ) : (
             <>

@@ -52,24 +52,24 @@ export function SupplierInvoiceForm({ initial }: {
   return (
     <form onSubmit={onSubmit} className="grid gap-4">
       <Card>
-        <CardContent className="grid gap-4 pt-5 sm:grid-cols-2 lg:grid-cols-4">
-          <Field label={t("purchasing.supplier")} className="lg:col-span-2"><SearchPicker endpoint="/suppliers" map={(r) => ({ id: String(r.id), label: String(r.name), sub: String(r.code) })} value={supplier} onChange={setSupplier} placeholder={t("common.searchPlaceholder")} disabled={Boolean(initial.purchaseOrderId)} /></Field>
+        <CardContent className="grid gap-5 pt-5 sm:grid-cols-2">
+          <Field label={t("purchasing.supplier")}><SearchPicker endpoint="/suppliers" map={(r) => ({ id: String(r.id), label: String(r.name), sub: String(r.code) })} value={supplier} onChange={setSupplier} placeholder={t("common.searchPlaceholder")} disabled={Boolean(initial.purchaseOrderId)} /></Field>
           <Field label={t("purchasing.supplierInvoiceNo")}><Input name="supplierInvoiceNo" dir="ltr" /></Field>
           <Field label={t("invoices.invoiceDate")}><Input name="invoiceDate" type="date" dir="ltr" defaultValue={new Date().toISOString().slice(0, 10)} /></Field>
           <Field label={t("invoices.dueDate")}><Input name="dueDate" type="date" dir="ltr" /></Field>
-          <label className="flex items-center gap-2 self-end pb-2 text-sm"><Checkbox checked={taxEnabled} onChange={(e) => setTaxEnabled(e.target.checked)} />{t("quotations.applyTax")}</label>
+          <label className="flex min-h-12 items-center gap-3 self-end rounded-xl border bg-muted/40 px-4 text-sm font-medium"><Checkbox checked={taxEnabled} onChange={(e) => setTaxEnabled(e.target.checked)} />{t("quotations.applyTax")}</label>
           {taxEnabled ? <Field label={t("quotations.taxRate")}><Input type="number" dir="ltr" value={taxRate} onChange={(e) => setTaxRate(e.target.value)} /></Field> : null}
         </CardContent>
       </Card>
       <Card>
-        <CardContent className="grid gap-2 pt-5">
+        <CardContent className="grid gap-3 pt-5">
           {lines.map((l) => (
-            <div key={l.k} className="grid gap-2 sm:grid-cols-[1fr_100px_130px_110px_auto]">
-              <Input placeholder={t("purchasing.description")} value={l.description} onChange={(e) => patch(l.k, { description: e.target.value })} />
-              <Input type="number" dir="ltr" step="any" placeholder={t("docs.qty")} value={l.quantity} onChange={(e) => patch(l.k, { quantity: e.target.value })} />
-              <Input type="number" dir="ltr" step="any" placeholder={t("purchasing.unitPrice")} value={l.unitPrice} onChange={(e) => patch(l.k, { unitPrice: e.target.value })} />
-              <Input type="number" dir="ltr" step="any" placeholder={t("docs.discount")} value={l.discount} onChange={(e) => patch(l.k, { discount: e.target.value })} />
-              <Button type="button" size="icon" variant="ghost" onClick={() => setLines(lines.filter((x) => x.k !== l.k))}><Trash2 /></Button>
+            <div key={l.k} className="grid gap-3 rounded-2xl border bg-muted/20 p-4 sm:grid-cols-2 xl:grid-cols-4">
+              <Field label={t("purchasing.description")} className="sm:col-span-2 xl:col-span-1"><Input value={l.description} onChange={(e) => patch(l.k, { description: e.target.value })} /></Field>
+              <Field label={t("docs.qty")}><Input type="number" dir="ltr" step="any" value={l.quantity} onChange={(e) => patch(l.k, { quantity: e.target.value })} /></Field>
+              <Field label={t("purchasing.unitPrice")}><Input type="number" dir="ltr" step="any" value={l.unitPrice} onChange={(e) => patch(l.k, { unitPrice: e.target.value })} /></Field>
+              <Field label={t("docs.discount")}><Input type="number" dir="ltr" step="any" value={l.discount} onChange={(e) => patch(l.k, { discount: e.target.value })} /></Field>
+              <Button type="button" size="icon" variant="ghost" className="justify-self-end sm:col-span-2 xl:col-span-4" onClick={() => setLines(lines.filter((x) => x.k !== l.k))} aria-label={t("common.delete")}><Trash2 /></Button>
             </div>
           ))}
           <Button type="button" variant="outline" size="sm" className="justify-self-start" onClick={() => setLines([...lines, { k: ++seq, materialId: null, description: "", quantity: "1", unitPrice: "", discount: "0" }])}><Plus />{t("inventory.addLine")}</Button>

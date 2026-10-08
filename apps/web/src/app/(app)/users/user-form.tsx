@@ -81,9 +81,10 @@ export function UserForm({ initial, roles, showrooms, warehouses }: {
   const err = (k: string) => (errors[k] ? t("errors.validation") : null);
 
   return (
-    <form onSubmit={onSubmit} className="grid gap-4 lg:grid-cols-3">
-      <Card className="lg:col-span-2">
-        <CardContent className="grid gap-4 pt-5 sm:grid-cols-2">
+    <form onSubmit={onSubmit} className="grid max-w-6xl gap-5 lg:grid-cols-[minmax(0,2fr)_minmax(280px,1fr)]">
+      <Card>
+        <CardHeader><CardTitle>{t(isEdit ? "common.edit" : "common.create")}</CardTitle></CardHeader>
+        <CardContent className="grid gap-5 sm:grid-cols-2">
           <Field label={t("users.fullName")} htmlFor="fullName" error={err("fullName")}>
             <Input id="fullName" name="fullName" defaultValue={initial?.fullName} required maxLength={150} />
           </Field>
@@ -116,7 +117,7 @@ export function UserForm({ initial, roles, showrooms, warehouses }: {
               <Field label={t("users.initialPassword")} htmlFor="password" hint={t("auth.passwordHint")} error={err("password")}>
                 <Input id="password" name="password" type="password" required minLength={8} autoComplete="new-password" dir="ltr" />
               </Field>
-              <label className="flex items-center gap-2 text-sm sm:col-span-2">
+              <label className="flex min-h-12 items-center gap-3 rounded-xl border bg-muted/40 px-4 text-sm font-medium sm:col-span-2">
                 <Checkbox name="mustChangePassword" defaultChecked />
                 {t("users.mustChange")}
               </label>
@@ -130,7 +131,7 @@ export function UserForm({ initial, roles, showrooms, warehouses }: {
           <CardHeader><CardTitle>{t("users.roles")}</CardTitle></CardHeader>
           <CardContent className="grid gap-2">
             {roles.map((r) => (
-              <label key={r.id} className="flex items-center gap-2 text-sm">
+              <label key={r.id} className="flex min-h-11 items-center gap-3 rounded-xl border bg-muted/30 px-3 text-sm hover:bg-muted/60">
                 <Checkbox checked={roleIds.includes(r.id)} onChange={() => toggle(roleIds, setRoleIds, r.id)} />
                 {locale === "ar" ? r.nameAr : r.nameEn}
               </label>
@@ -143,7 +144,7 @@ export function UserForm({ initial, roles, showrooms, warehouses }: {
             <CardHeader><CardTitle>{t("users.warehouses")}</CardTitle></CardHeader>
             <CardContent className="grid gap-2">
               {warehouses.map((w) => (
-                <label key={w.id} className="flex items-center gap-2 text-sm">
+                <label key={w.id} className="flex min-h-11 items-center gap-3 rounded-xl border bg-muted/30 px-3 text-sm hover:bg-muted/60">
                   <Checkbox checked={warehouseIds.includes(w.id)} onChange={() => toggle(warehouseIds, setWarehouseIds, w.id)} />
                   {w.name}
                 </label>
@@ -153,7 +154,7 @@ export function UserForm({ initial, roles, showrooms, warehouses }: {
         ) : null}
       </div>
 
-      <div className="flex items-center gap-3 lg:col-span-3">
+      <div className="flex flex-wrap items-center gap-3 lg:col-span-2">
         <Button type="submit" disabled={pending}>{t("common.save")}</Button>
         <Button type="button" variant="outline" onClick={() => router.back()}>{t("common.cancel")}</Button>
         {formError ? <p role="alert" className="text-sm text-destructive">{formError}</p> : null}

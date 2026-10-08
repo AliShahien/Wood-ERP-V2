@@ -17,7 +17,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const { locale, overrides } = await getT();
   const dir = dirOf(locale);
   return (
-    <html lang={locale} dir={dir}>
+    <html lang={locale} dir={dir} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: "try{if(localStorage.getItem('edge-theme')==='dark')document.documentElement.dataset.theme='dark'}catch(e){}" }} />
+      </head>
       <body className="min-h-dvh antialiased">
         <I18nProvider locale={locale} overrides={overrides}>
           {children}

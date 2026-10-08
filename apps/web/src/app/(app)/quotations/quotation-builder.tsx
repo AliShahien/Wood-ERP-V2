@@ -117,7 +117,7 @@ export function QuotationBuilder({ initial, canOverride }: { initial: BuilderIni
   }
 
   return (
-    <div className="grid gap-4 lg:grid-cols-[1fr_320px]">
+    <div className="grid min-w-0 gap-5 xl:grid-cols-[minmax(0,1fr)_340px]">
       <div className="grid content-start gap-4">
         <Card>
           <CardHeader><CardTitle>{t("quotations.customer")}</CardTitle></CardHeader>
@@ -143,16 +143,16 @@ export function QuotationBuilder({ initial, canOverride }: { initial: BuilderIni
                 <Button variant="ghost" size="icon" onClick={() => setLines((ls) => ls.filter((x) => x.key !== l.key))} aria-label={t("common.delete")}><Trash2 /></Button>
               </CardHeader>
               <CardContent className="grid gap-4">
-                <SearchPicker
+                <Field label={t("quotations.product")}><SearchPicker
                   endpoint="/products?status=ACTIVE"
                   map={(r) => ({ id: String(r.id), label: String(r.name), sub: String(r.code) })}
                   value={l.product ? { id: l.product.id, label: l.product.name, sub: l.product.code } : null}
                   onChange={(v) => void pickProduct(l.key, v)}
                   placeholder={t("common.searchPlaceholder")}
-                />
+                /></Field>
                 {l.product ? (
                   <>
-                    <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                    <div className="grid gap-4 sm:grid-cols-2">
                       <Field label={t("quotations.width")}><Input type="number" dir="ltr" value={l.width} onChange={(e) => patch(l.key, { width: e.target.value })} min={l.product.minWidth ?? 1} max={l.product.maxWidth ?? undefined} /></Field>
                       <Field label={t("quotations.height")}><Input type="number" dir="ltr" value={l.height} onChange={(e) => patch(l.key, { height: e.target.value })} min={l.product.minHeight ?? 1} max={l.product.maxHeight ?? undefined} /></Field>
                       <Field label={t("quotations.thickness")}><Input type="number" dir="ltr" value={l.thickness} onChange={(e) => patch(l.key, { thickness: e.target.value })} /></Field>
@@ -165,7 +165,7 @@ export function QuotationBuilder({ initial, canOverride }: { initial: BuilderIni
                           {opts.map((o) => {
                             const on = l.optionIds.includes(o.optionId);
                             return (
-                              <label key={o.optionId} className={`flex cursor-pointer items-center gap-1.5 rounded-full border px-3 py-1 text-sm ${on ? "border-primary bg-primary/10" : ""}`}>
+                              <label key={o.optionId} className={`flex min-h-11 cursor-pointer items-center gap-2 rounded-xl border px-3 py-2 text-sm ${on ? "border-primary bg-primary/10" : "bg-muted/20"}`}>
                                 <Checkbox checked={on} onChange={() => patch(l.key, { optionIds: on ? l.optionIds.filter((x) => x !== o.optionId) : [...l.optionIds, o.optionId] })} />
                                 {o.option.name}
                               </label>
@@ -174,7 +174,7 @@ export function QuotationBuilder({ initial, canOverride }: { initial: BuilderIni
                         </div>
                       </div>
                     ))}
-                    <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                    <div className="grid gap-4 sm:grid-cols-2">
                       <Field label={t("quotations.unitPrice")} hint={pv && l.overridden ? `${t("quotations.calculated")}: ${fmt(pv.unitPrice)}` : undefined}>
                         <Input
                           type="number" dir="ltr" step="0.01"
@@ -184,9 +184,9 @@ export function QuotationBuilder({ initial, canOverride }: { initial: BuilderIni
                         />
                       </Field>
                       <Field label={t("quotations.lineDiscount")}><Input type="number" dir="ltr" min={0} step="0.01" value={l.discount} onChange={(e) => patch(l.key, { discount: e.target.value })} /></Field>
-                      <Field label={t("quotations.lineTotal")} className="sm:col-span-2"><div className="num flex h-9 items-center text-base font-semibold">{pv ? fmt(pv.lineTotal) : "—"}</div></Field>
+                      <Field label={t("quotations.lineTotal")} className="sm:col-span-2"><div className="num flex min-h-12 items-center rounded-xl border bg-muted/30 px-4 text-base font-semibold">{pv ? fmt(pv.lineTotal) : "—"}</div></Field>
                     </div>
-                    <Input placeholder={t("fields.description")} value={l.description} onChange={(e) => patch(l.key, { description: e.target.value })} />
+                    <Field label={t("fields.description")}><Input value={l.description} onChange={(e) => patch(l.key, { description: e.target.value })} /></Field>
                   </>
                 ) : null}
               </CardContent>
@@ -206,7 +206,7 @@ export function QuotationBuilder({ initial, canOverride }: { initial: BuilderIni
         </Card>
       </div>
 
-      <div className="lg:sticky lg:top-20 lg:self-start">
+      <div className="xl:sticky xl:top-20 xl:self-start">
         <Card>
           <CardHeader><CardTitle>{t("quotations.total")}</CardTitle></CardHeader>
           <CardContent className="grid gap-3 text-sm">
@@ -219,7 +219,7 @@ export function QuotationBuilder({ initial, canOverride }: { initial: BuilderIni
             </div>
             <Field label={t("quotations.installation")}><Input type="number" dir="ltr" min={0} value={h.installationCharge} onChange={(e) => setH({ ...h, installationCharge: e.target.value })} /></Field>
             <Field label={t("quotations.transportation")}><Input type="number" dir="ltr" min={0} value={h.transportationCharge} onChange={(e) => setH({ ...h, transportationCharge: e.target.value })} /></Field>
-            <label className="flex items-center gap-2"><Checkbox checked={h.taxEnabled} onChange={(e) => setH({ ...h, taxEnabled: e.target.checked })} />{t("quotations.applyTax")}</label>
+            <label className="flex min-h-12 items-center gap-3 rounded-xl border bg-muted/40 px-4 font-medium"><Checkbox checked={h.taxEnabled} onChange={(e) => setH({ ...h, taxEnabled: e.target.checked })} />{t("quotations.applyTax")}</label>
             {h.taxEnabled ? <Field label={t("quotations.taxRate")}><Input type="number" dir="ltr" min={0} max={100} step="0.01" value={h.taxRate} onChange={(e) => setH({ ...h, taxRate: e.target.value })} /></Field> : null}
             <Field label={t("quotations.deposit")}><Input type="number" dir="ltr" min={0} placeholder={preview ? fmt(preview.depositRequired) : ""} value={h.depositRequired} onChange={(e) => setH({ ...h, depositRequired: e.target.value })} /></Field>
             <dl className="grid grid-cols-2 gap-y-1.5 border-t pt-3">

@@ -5,7 +5,7 @@ export function Input({ className, ...props }: ComponentProps<"input">) {
   return (
     <input
       className={cn(
-        "flex min-h-11 w-full rounded-[14px] border border-input bg-card px-3 py-1 text-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-2 focus-visible:outline-ring disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive",
+        "flex min-h-12 w-full min-w-0 rounded-xl border border-input bg-background/60 px-4 py-2.5 text-sm text-foreground shadow-sm shadow-foreground/5 transition-[border-color,box-shadow,background-color] placeholder:text-muted-foreground/80 hover:border-ring/60 focus-visible:border-ring focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/25 disabled:cursor-not-allowed disabled:bg-muted disabled:opacity-65 aria-invalid:border-destructive aria-invalid:ring-2 aria-invalid:ring-destructive/20",
         className,
       )}
       {...props}
@@ -17,7 +17,7 @@ export function Textarea({ className, ...props }: ComponentProps<"textarea">) {
   return (
     <textarea
       className={cn(
-        "flex min-h-24 w-full rounded-[14px] border border-input bg-card px-3 py-2 text-sm placeholder:text-muted-foreground disabled:opacity-50",
+        "flex min-h-28 w-full min-w-0 rounded-xl border border-input bg-background/60 px-4 py-3 text-sm text-foreground shadow-sm shadow-foreground/5 transition-[border-color,box-shadow,background-color] placeholder:text-muted-foreground/80 hover:border-ring/60 focus-visible:border-ring focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/25 disabled:cursor-not-allowed disabled:bg-muted disabled:opacity-65 aria-invalid:border-destructive aria-invalid:ring-2 aria-invalid:ring-destructive/20",
         className,
       )}
       {...props}
@@ -28,36 +28,37 @@ export function Textarea({ className, ...props }: ComponentProps<"textarea">) {
 export function NativeSelect({ className, ...props }: ComponentProps<"select">) {
   return (
     <select
-      className={cn("flex min-h-11 w-full rounded-[14px] border border-input bg-card px-3 text-sm disabled:opacity-50", className)}
+      className={cn("flex min-h-12 w-full min-w-0 rounded-xl border border-input bg-background/60 px-4 text-sm text-foreground shadow-sm shadow-foreground/5 transition-[border-color,box-shadow,background-color] hover:border-ring/60 focus-visible:border-ring focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/25 disabled:cursor-not-allowed disabled:bg-muted disabled:opacity-65 aria-invalid:border-destructive aria-invalid:ring-2 aria-invalid:ring-destructive/20", className)}
       {...props}
     />
   );
 }
 
 export function Label({ className, ...props }: ComponentProps<"label">) {
-  return <label className={cn("text-sm font-medium leading-none", className)} {...props} />;
+  return <label className={cn("text-sm font-semibold leading-5 text-foreground", className)} {...props} />;
 }
 
-export function Field({ label, htmlFor, error, hint, children, className }: {
+export function Field({ label, htmlFor, error, errorId, hint, children, className }: {
   label: ReactNode;
   htmlFor?: string;
   error?: string | null;
+  errorId?: string;
   hint?: ReactNode;
   children: ReactNode;
   className?: string;
 }) {
   return (
-    <div className={cn("grid gap-1.5", className)}>
+    <div className={cn("grid min-w-0 content-start gap-2", className)}>
       <Label htmlFor={htmlFor}>{label}</Label>
       {children}
-      {hint && !error ? <p className="text-xs text-muted-foreground">{hint}</p> : null}
-      {error ? <p className="text-xs text-destructive">{error}</p> : null}
+      {hint && !error ? <p className="text-xs leading-relaxed text-muted-foreground">{hint}</p> : null}
+      {error ? <p id={errorId} role="alert" className="text-xs leading-relaxed text-destructive">{error}</p> : null}
     </div>
   );
 }
 
 export function Card({ className, ...props }: ComponentProps<"div">) {
-  return <div className={cn("min-w-0 overflow-hidden rounded-[22px] border bg-card text-card-foreground shadow-[0_14px_40px_rgba(36,63,45,0.055)]", className)} {...props} />;
+  return <div className={cn("min-w-0 overflow-hidden rounded-[22px] border bg-card text-card-foreground shadow-lg shadow-foreground/5", className)} {...props} />;
 }
 export function CardHeader({ className, ...props }: ComponentProps<"div">) {
   return <div className={cn("flex flex-col gap-1 p-5 pb-3", className)} {...props} />;
@@ -75,7 +76,7 @@ export function CardContent({ className, ...props }: ComponentProps<"div">) {
 const badgeTones = {
   neutral: "bg-muted text-muted-foreground",
   success: "bg-success/12 text-success",
-  warning: "bg-warning/15 text-[oklch(0.45_0.1_70)]",
+  warning: "bg-warning/15 text-warning",
   danger: "bg-destructive/10 text-destructive",
   info: "bg-primary/10 text-primary",
 } as const;
@@ -134,5 +135,5 @@ export function PageHeader({ title, description, actions }: { title: string; des
 }
 
 export function Checkbox({ className, ...props }: ComponentProps<"input">) {
-  return <input type="checkbox" className={cn("size-4 rounded border-input accent-[var(--color-primary)]", className)} {...props} />;
+  return <input type="checkbox" className={cn("size-5 shrink-0 rounded border-input accent-[var(--color-primary)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring", className)} {...props} />;
 }

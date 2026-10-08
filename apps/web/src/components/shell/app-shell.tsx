@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/material-icons";
 import { useI18n } from "@/components/i18n-provider";
 import { LanguageSwitch } from "@/components/language-switch";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { api } from "@/lib/api-client";
 import { cn } from "@/lib/utils";
@@ -132,6 +133,7 @@ export function AppShell({ nav, user, children }: { nav: NavSection[]; user: { f
           </Button>
           <div className="flex min-w-0 flex-1 justify-start"><GlobalSearch /></div>
           <NotificationBell />
+          <ThemeToggle />
           <LanguageSwitch signedIn />
           <Link href="/profile" className="flex items-center gap-2 rounded-2xl px-2 py-1.5 text-sm hover:bg-accent">
             <span className="grid size-9 place-items-center rounded-full bg-secondary text-secondary-foreground"><UserRound className="size-5" /></span>

@@ -35,6 +35,8 @@
     "next": "Next",
     "saved": "Saved successfully",
     "language": "Language",
+    "enableDarkMode": "Switch to dark mode",
+    "enableLightMode": "Switch to light mode",
     "arabic": "العربية",
     "english": "English",
     "none": "—",

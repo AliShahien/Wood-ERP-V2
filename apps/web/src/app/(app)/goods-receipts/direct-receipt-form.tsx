@@ -39,12 +39,12 @@ export function DirectReceiptForm({ warehouses }: { warehouses: { id: string; na
   return (
     <form onSubmit={onSubmit} className="grid gap-4">
       <Card>
-        <CardContent className="grid gap-4 pt-5 sm:grid-cols-2 lg:grid-cols-4">
-          <Field label={t("purchasing.supplier")} className="lg:col-span-2"><SearchPicker endpoint="/suppliers?status=ACTIVE" map={(r) => ({ id: String(r.id), label: String(r.name), sub: String(r.code) })} value={supplier} onChange={setSupplier} placeholder={t("common.searchPlaceholder")} /></Field>
+        <CardContent className="grid gap-5 pt-5 sm:grid-cols-2">
+          <Field label={t("purchasing.supplier")}><SearchPicker endpoint="/suppliers?status=ACTIVE" map={(r) => ({ id: String(r.id), label: String(r.name), sub: String(r.code) })} value={supplier} onChange={setSupplier} placeholder={t("common.searchPlaceholder")} /></Field>
           <Field label={t("purchasing.warehouse")}><NativeSelect name="warehouseId" required>{warehouses.map((w) => <option key={w.id} value={w.id}>{w.name}</option>)}</NativeSelect></Field>
           <Field label={t("purchasing.supplierDocNo")}><Input name="supplierDocNo" dir="ltr" /></Field>
           <Field label={t("common.createdAt")}><Input name="date" type="date" dir="ltr" defaultValue={new Date().toISOString().slice(0, 10)} /></Field>
-          <div className="sm:col-span-2 lg:col-span-4"><MaterialLines lines={lines} onChange={setLines} withCost /></div>
+          <div className="border-t pt-5 sm:col-span-2"><MaterialLines lines={lines} onChange={setLines} withCost /></div>
         </CardContent>
       </Card>
       <div><Button type="submit" disabled={pending || !supplier}>{t("common.save")}</Button></div>

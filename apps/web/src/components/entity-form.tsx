@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState, type FormEvent, type ReactNode } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, Checkbox, Field, Input, NativeSelect, Textarea } from "@/components/ui/primitives";
+import { Card, CardContent, CardHeader, CardTitle, Checkbox, Field, Input, NativeSelect, Textarea } from "@/components/ui/primitives";
 import { useI18n } from "@/components/i18n-provider";
 import { api, ApiError } from "@/lib/api-client";
 import { cn } from "@/lib/utils";
@@ -71,8 +71,11 @@ export function EntityForm({ fields, endpoint, method, initial = {}, redirectTo,
       router.refresh();
     } catch (err) {
       if (err instanceof ApiError) {
-        setErrors(err.fieldErrors());
+        const fieldErrors = err.fieldErrors();
+        setErrors(fieldErrors);
         setFormError(t(err.body.messageKey, (err.body.details as Record<string, string>) ?? undefined));
+        const first = Object.keys(fieldErrors)[0];
+        if (first) requestAnimationFrame(() => document.getElementById(`f-${first}`)?.focus());
       } else setFormError(t("errors.internal"));
     } finally {
       setPending(false);
@@ -85,29 +88,32 @@ export function EntityForm({ fields, endpoint, method, initial = {}, redirectTo,
   };
 
   return (
-    <form onSubmit={onSubmit} className="grid gap-4">
+    <form onSubmit={onSubmit} className="grid w-full max-w-5xl gap-5">
       <Card>
-        <CardContent className="grid gap-4 pt-5 sm:grid-cols-2 lg:grid-cols-3">
-          <fieldset disabled={readOnly} className="contents">
+        <CardHeader className="border-b bg-muted/30 px-5 py-4 sm:px-7">
+          <CardTitle>{t(isEdit ? "common.edit" : "common.create")}</CardTitle>
+        </CardHeader>
+        <CardContent className="p-5 pt-5 sm:p-7 sm:pt-7">
+          <fieldset disabled={readOnly} className="grid min-w-0 gap-x-5 gap-y-5 sm:grid-cols-2">
             {fields.map((def) => {
               const id = `f-${def.name}`;
               const disabled = isEdit && def.disabledOnEdit;
-              const span = def.span === 3 ? "sm:col-span-2 lg:col-span-3" : def.span === 2 ? "sm:col-span-2" : "";
+              const span = def.span && def.span > 1 ? "sm:col-span-2" : "";
               const error = errors[def.name] ? t("errors.validation") : null;
               if (def.type === "checkbox") {
                 return (
-                  <label key={def.name} className={cn("flex items-center gap-2 self-end pb-2 text-sm", span)}>
+                  <label key={def.name} className={cn("flex min-h-12 items-center gap-3 self-end rounded-xl border bg-muted/40 px-4 py-3 text-sm font-medium", span)}>
                     <Checkbox name={def.name} defaultChecked={Boolean(initial[def.name])} disabled={disabled} />
                     {t(def.label)}
                   </label>
                 );
               }
               return (
-                <Field key={def.name} label={<>{t(def.label)}{def.required ? <span className="text-destructive"> *</span> : null}</>} htmlFor={id} error={error} hint={def.hint ? t(def.hint) : undefined} className={span}>
+                <Field key={def.name} label={<>{t(def.label)}{def.required ? <span className="text-destructive"> *</span> : null}</>} htmlFor={id} error={error} errorId={`${id}-error`} hint={def.hint ? t(def.hint) : undefined} className={span}>
                   {def.type === "textarea" ? (
-                    <Textarea id={id} name={def.name} defaultValue={val(def.name)} required={def.required} dir={def.dir} rows={3} disabled={disabled} aria-invalid={Boolean(error)} />
+                    <Textarea id={id} name={def.name} defaultValue={val(def.name)} required={def.required} dir={def.dir} rows={3} disabled={disabled} aria-invalid={Boolean(error)} aria-describedby={error ? `${id}-error` : undefined} />
                   ) : def.type === "select" ? (
-                    <NativeSelect id={id} name={def.name} defaultValue={val(def.name)} required={def.required} disabled={disabled} aria-invalid={Boolean(error)}>
+                    <NativeSelect id={id} name={def.name} defaultValue={val(def.name)} required={def.required} disabled={disabled} aria-invalid={Boolean(error)} aria-describedby={error ? `${id}-error` : undefined}>
                       {def.emptyOption || !def.required ? <option value="">{t(def.emptyOption ?? "common.select")}</option> : null}
                       {def.options?.map((o) => <option key={o.value} value={o.value}>{o.raw ? o.label : t(o.label)}</option>)}
                     </NativeSelect>
@@ -125,6 +131,7 @@ export function EntityForm({ fields, endpoint, method, initial = {}, redirectTo,
                       disabled={disabled}
                       placeholder={def.placeholder ? t(def.placeholder) : undefined}
                       aria-invalid={Boolean(error)}
+                      aria-describedby={error ? `${id}-error` : undefined}
                     />
                   )}
                 </Field>
@@ -135,10 +142,12 @@ export function EntityForm({ fields, endpoint, method, initial = {}, redirectTo,
       </Card>
       {extra}
       {!readOnly ? (
-        <div className="flex flex-wrap items-center gap-3">
-          <Button type="submit" disabled={pending}>{submitLabel ? t(submitLabel) : t("common.save")}</Button>
-          <Button type="button" variant="outline" onClick={() => router.back()}>{t("common.cancel")}</Button>
-          {formError ? <p role="alert" className="text-sm text-destructive">{formError}</p> : null}
+        <div className="flex flex-col gap-3 rounded-2xl border bg-card p-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+          {formError ? <p role="alert" className="text-sm text-destructive">{formError}</p> : <span />}
+          <div className="flex flex-wrap items-center gap-3">
+            <Button type="button" variant="outline" onClick={() => router.back()}>{t("common.cancel")}</Button>
+            <Button type="submit" disabled={pending}>{submitLabel ? t(submitLabel) : t("common.save")}</Button>
+          </div>
         </div>
       ) : null}
     </form>

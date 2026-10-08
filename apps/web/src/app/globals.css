@@ -30,10 +30,38 @@
   --radius-lg: 1.375rem;
   --font-sans: 'Noto Sans Arabic', Arial, sans-serif;
 }
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-background: #101813;
+  --color-foreground: #eaf3eb;
+  --color-card: #19241d;
+  --color-card-foreground: #eaf3eb;
+  --color-muted: #26342a;
+  --color-muted-foreground: #b4c5b8;
+  --color-border: #34483a;
+  --color-input: #506957;
+  --color-ring: #a3d8b2;
+  --color-primary: #a3d8b2;
+  --color-primary-foreground: #102318;
+  --color-secondary: #2c4535;
+  --color-secondary-foreground: #e0f2e3;
+  --color-accent: #304637;
+  --color-accent-foreground: #eaf3eb;
+  --color-destructive: #ff9589;
+  --color-destructive-foreground: #34100d;
+  --color-success: #91d3a6;
+  --color-warning: #efc977;
+  --color-sidebar: #151f18;
+  --color-sidebar-foreground: #d8e8da;
+  --color-sidebar-muted: #adbfaf;
+  --color-sidebar-active: #304b39;
+}
 @layer base {
   * { border-color: var(--color-border); }
-  html { -webkit-text-size-adjust: 100%; }
-  body { background: var(--color-background); color: var(--color-foreground); font-family: var(--font-sans); }
+  html { -webkit-text-size-adjust: 100%; color-scheme: light; }
+  html[data-theme="dark"] { color-scheme: dark; }
+  body { background: var(--color-background); color: var(--color-foreground); font-family: var(--font-sans); transition: background-color .18s ease, color .18s ease; }
   html[lang="en"] body { font-family: Roboto, Arial, sans-serif; }
   :focus-visible { outline: 2px solid var(--color-ring); outline-offset: 2px; }
 }

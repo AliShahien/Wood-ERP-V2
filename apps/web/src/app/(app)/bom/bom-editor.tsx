@@ -80,11 +80,11 @@ export function BomEditor({ bomId, productId, readOnly, options, initial, defaul
   return (
     <div className="grid gap-4">
       <Card>
-        <CardContent className="grid gap-4 pt-5 sm:grid-cols-3">
-          <Field label={t("bom.name")}><Input value={head.name} onChange={(e) => setHead({ ...head, name: e.target.value })} disabled={readOnly} /></Field>
+        <CardContent className="grid gap-4 pt-5 sm:grid-cols-2">
+          <Field label={t("bom.name")} className="sm:col-span-2"><Input value={head.name} onChange={(e) => setHead({ ...head, name: e.target.value })} disabled={readOnly} /></Field>
           <Field label={t("bom.laborCostPerUnit")}><Input type="number" dir="ltr" min={0} value={head.laborCostPerUnit} onChange={(e) => setHead({ ...head, laborCostPerUnit: e.target.value })} disabled={readOnly} /></Field>
           <Field label={t("bom.overheadPercent")}><Input type="number" dir="ltr" min={0} value={head.overheadPercent} onChange={(e) => setHead({ ...head, overheadPercent: e.target.value })} disabled={readOnly} /></Field>
-          <p className="text-xs text-muted-foreground sm:col-span-3">{t("bom.variablesHelp")}</p>
+          <p className="text-xs text-muted-foreground sm:col-span-2">{t("bom.variablesHelp")}</p>
         </CardContent>
       </Card>
 
@@ -93,13 +93,12 @@ export function BomEditor({ bomId, productId, readOnly, options, initial, defaul
           <CardTitle>{t("bom.rules")}</CardTitle>
           {!readOnly ? <Button size="sm" variant="outline" onClick={() => setRules([...rules, { key: "", expression: "" }])}><Plus />{t("bom.addRule")}</Button> : null}
         </CardHeader>
-        <CardContent className="grid gap-2">
+        <CardContent className="grid gap-3">
           {rules.map((r, i) => (
-            <div key={i} className="grid grid-cols-[160px_1fr_auto] gap-2">
-              <Input dir="ltr" placeholder={t("bom.ruleKey")} value={r.key} disabled={readOnly} onChange={(e) => setRules(rules.map((x, j) => (j === i ? { ...x, key: e.target.value } : x)))} aria-invalid={Boolean(errors[`rules.${i}.key`])} />
-              <Input dir="ltr" className="font-mono" placeholder="W * H / 1000000" value={r.expression} disabled={readOnly} onChange={(e) => setRules(rules.map((x, j) => (j === i ? { ...x, expression: e.target.value } : x)))} aria-invalid={Boolean(errors[`rules.${i}.expression`])} />
-              {!readOnly ? <Button size="icon" variant="ghost" onClick={() => setRules(rules.filter((_, j) => j !== i))}><Trash2 /></Button> : <span />}
-              {errors[`rules.${i}.expression`] ? <p className="col-span-3 text-xs text-destructive" dir="ltr">{errors[`rules.${i}.expression`]}</p> : null}
+            <div key={i} className="grid gap-3 rounded-2xl border bg-muted/20 p-4 sm:grid-cols-[minmax(0,1fr)_minmax(0,2fr)_auto] sm:items-end">
+              <Field label={t("bom.ruleKey")} error={errors[`rules.${i}.key`]}><Input dir="ltr" value={r.key} disabled={readOnly} onChange={(e) => setRules(rules.map((x, j) => (j === i ? { ...x, key: e.target.value } : x)))} aria-invalid={Boolean(errors[`rules.${i}.key`])} /></Field>
+              <Field label={t("bom.expression")} error={errors[`rules.${i}.expression`]}><Input dir="ltr" className="font-mono" placeholder="W * H / 1000000" value={r.expression} disabled={readOnly} onChange={(e) => setRules(rules.map((x, j) => (j === i ? { ...x, expression: e.target.value } : x)))} aria-invalid={Boolean(errors[`rules.${i}.expression`])} /></Field>
+              {!readOnly ? <Button size="icon" variant="ghost" className="justify-self-end" onClick={() => setRules(rules.filter((_, j) => j !== i))} aria-label={t("common.delete")}><Trash2 /></Button> : null}
             </div>
           ))}
         </CardContent>
@@ -112,25 +111,26 @@ export function BomEditor({ bomId, productId, readOnly, options, initial, defaul
         </CardHeader>
         <CardContent className="grid gap-3">
           {items.map((it, i) => (
-            <div key={it.k} className="grid gap-2 rounded-md border p-3 lg:grid-cols-[minmax(0,2fr)_130px_minmax(0,2fr)_90px_80px_minmax(0,1.3fr)_auto] lg:items-center">
-              <SearchPicker endpoint="/materials?status=ACTIVE" map={(r) => ({ id: String(r.id), label: String(r.name), sub: String(r.code) })} value={it.material} onChange={(v) => patchItem(it.k, { material: v })} placeholder={t("bom.material")} disabled={readOnly} />
-              <NativeSelect value={it.quantityType} disabled={readOnly} onChange={(e) => patchItem(it.k, { quantityType: e.target.value as Item["quantityType"] })}>
+            <div key={it.k} className="grid gap-3 rounded-2xl border bg-muted/20 p-4 sm:grid-cols-2 lg:grid-cols-3 lg:items-end">
+              <Field label={t("bom.material")} className="sm:col-span-2 lg:col-span-3"><SearchPicker endpoint="/materials?status=ACTIVE" map={(r) => ({ id: String(r.id), label: String(r.name), sub: String(r.code) })} value={it.material} onChange={(v) => patchItem(it.k, { material: v })} placeholder={t("bom.material")} disabled={readOnly} /></Field>
+              <Field label={t("bom.quantityType")}><NativeSelect value={it.quantityType} disabled={readOnly} onChange={(e) => patchItem(it.k, { quantityType: e.target.value as Item["quantityType"] })}>
                 <option value="FIXED">{t("status.BomQuantityType.FIXED")}</option>
                 <option value="FORMULA">{t("status.BomQuantityType.FORMULA")}</option>
-              </NativeSelect>
+              </NativeSelect></Field>
               {it.quantityType === "FIXED" ? (
-                <Input type="number" dir="ltr" step="any" min={0} value={it.fixedQuantity} disabled={readOnly} onChange={(e) => patchItem(it.k, { fixedQuantity: e.target.value })} aria-invalid={Boolean(errors[`items.${i}.fixedQuantity`])} />
+                <Field label={t("bom.fixedQuantity")} error={errors[`items.${i}.fixedQuantity`]}><Input type="number" dir="ltr" step="any" min={0} value={it.fixedQuantity} disabled={readOnly} onChange={(e) => patchItem(it.k, { fixedQuantity: e.target.value })} aria-invalid={Boolean(errors[`items.${i}.fixedQuantity`])} /></Field>
               ) : (
-                <Input dir="ltr" className="font-mono" placeholder="area * 2" value={it.formula} disabled={readOnly} onChange={(e) => patchItem(it.k, { formula: e.target.value })} aria-invalid={Boolean(errors[`items.${i}.formula`])} />
+                <Field label={t("bom.expression")} error={errors[`items.${i}.formula`]}><Input dir="ltr" className="font-mono" placeholder="area * 2" value={it.formula} disabled={readOnly} onChange={(e) => patchItem(it.k, { formula: e.target.value })} aria-invalid={Boolean(errors[`items.${i}.formula`])} /></Field>
               )}
-              <label className="flex items-center gap-1.5 text-xs"><Checkbox checked={it.perUnit} disabled={readOnly} onChange={(e) => patchItem(it.k, { perUnit: e.target.checked })} />{t("bom.perUnit")}</label>
-              <Input type="number" dir="ltr" min={0} max={100} title={t("bom.waste")} value={it.wastePercent} disabled={readOnly} onChange={(e) => patchItem(it.k, { wastePercent: e.target.value })} />
-              <NativeSelect value={it.conditionOptionId} disabled={readOnly} onChange={(e) => patchItem(it.k, { conditionOptionId: e.target.value })} title={t("bom.condition")}>
-                <option value="">{t("bom.condition")}: —</option>
+              <Field label={t("bom.waste")}><Input type="number" dir="ltr" min={0} max={100} value={it.wastePercent} disabled={readOnly} onChange={(e) => patchItem(it.k, { wastePercent: e.target.value })} /></Field>
+              <Field label={t("bom.condition")}><NativeSelect value={it.conditionOptionId} disabled={readOnly} onChange={(e) => patchItem(it.k, { conditionOptionId: e.target.value })}>
+                <option value="">—</option>
                 {options.map((o) => <option key={o.id} value={o.id}>{o.name}</option>)}
-              </NativeSelect>
-              {!readOnly ? <Button size="icon" variant="ghost" onClick={() => setItems(items.filter((x) => x.k !== it.k))}><Trash2 /></Button> : <span />}
-              {errors[`items.${i}.formula`] ? <p className="text-xs text-destructive lg:col-span-7" dir="ltr">{errors[`items.${i}.formula`]}</p> : null}
+              </NativeSelect></Field>
+              <div className="flex items-center justify-between gap-3 sm:col-span-2 lg:col-span-1">
+                <label className="flex items-center gap-2 text-sm"><Checkbox checked={it.perUnit} disabled={readOnly} onChange={(e) => patchItem(it.k, { perUnit: e.target.checked })} />{t("bom.perUnit")}</label>
+                {!readOnly ? <Button size="icon" variant="ghost" onClick={() => setItems(items.filter((x) => x.k !== it.k))} aria-label={t("common.delete")}><Trash2 /></Button> : null}
+              </div>
             </div>
           ))}
         </CardContent>

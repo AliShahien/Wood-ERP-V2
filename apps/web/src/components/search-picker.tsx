@@ -46,24 +46,24 @@ export function SearchPicker({ endpoint, map, value, onChange, placeholder, disa
 
   if (value) {
     return (
-      <div className="flex h-9 items-center gap-2 rounded-md border border-input bg-card px-3 text-sm">
+      <div className="flex min-h-12 items-center gap-2 rounded-xl border border-input bg-background/60 px-4 py-2 text-sm shadow-sm shadow-foreground/5">
         <span className="min-w-0 flex-1 truncate font-medium">{value.label}</span>
         {value.sub ? <span className="num truncate text-xs text-muted-foreground">{value.sub}</span> : null}
-        {!disabled ? <button type="button" onClick={() => onChange(null)} className="text-muted-foreground hover:text-foreground" aria-label="clear"><X className="size-4" /></button> : null}
+        {!disabled ? <button type="button" onClick={() => onChange(null)} className="rounded-lg p-1 text-muted-foreground hover:bg-accent hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring" aria-label="clear"><X className="size-4" /></button> : null}
       </div>
     );
   }
   return (
     <div ref={box} className="relative">
-      <Search className="pointer-events-none absolute start-2.5 top-2.5 size-4 text-muted-foreground" />
-      <Input value={q} onChange={(e) => setQ(e.target.value)} onFocus={() => setOpen(true)} placeholder={placeholder} className="ps-8" disabled={disabled} />
+      <Search className="pointer-events-none absolute start-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+      <Input value={q} onChange={(e) => setQ(e.target.value)} onFocus={() => setOpen(true)} placeholder={placeholder} className="ps-11" disabled={disabled} />
       {open && items.length > 0 ? (
-        <ul className="absolute z-20 mt-1 max-h-72 w-full overflow-y-auto rounded-md border bg-card py-1 shadow-lg">
+        <ul className="absolute z-20 mt-2 max-h-72 w-full overflow-y-auto rounded-xl border bg-card p-1.5 shadow-xl shadow-foreground/10">
           {items.map((it) => (
             <li key={it.id}>
               <button
                 type="button"
-                className={cn("flex w-full items-center gap-2 px-3 py-2 text-start text-sm hover:bg-accent")}
+                className={cn("flex min-h-11 w-full items-center gap-2 rounded-lg px-3 py-2 text-start text-sm hover:bg-accent focus-visible:outline-2 focus-visible:outline-ring")}
                 onClick={() => { onChange(it); setOpen(false); setQ(""); }}
               >
                 <span className="min-w-0 flex-1 truncate">{it.label}</span>

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Field, Input } from "@/components/ui/primitives";
 import { useI18n } from "@/components/i18n-provider";
 import { LanguageSwitch } from "@/components/language-switch";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { api, ApiError } from "@/lib/api-client";
 
 export function LoginForm() {
@@ -47,8 +48,9 @@ export function LoginForm() {
       <Button type="submit" size="lg" disabled={pending}>
         {pending ? t("auth.signingIn") : t("auth.signIn")}
       </Button>
-      <div className="flex justify-center pt-2">
+      <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
         <LanguageSwitch />
+        <ThemeToggle showLabel />
       </div>
     </form>
   );

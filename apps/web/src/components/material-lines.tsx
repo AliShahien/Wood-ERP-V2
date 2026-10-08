@@ -2,7 +2,7 @@
 
 import { Plus, Trash2 } from "@/components/ui/material-icons";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/primitives";
+import { Field, Input } from "@/components/ui/primitives";
 import { useI18n } from "@/components/i18n-provider";
 import { SearchPicker, type PickItem } from "@/components/search-picker";
 
@@ -23,13 +23,17 @@ export function MaterialLines({ lines, onChange, withCost, costLabel, qtyLabel, 
   const { t } = useI18n();
   const patch = (k: number, p: Partial<MaterialLine>) => onChange(lines.map((l) => (l.k === k ? { ...l, ...p } : l)));
   return (
-    <div className="grid gap-2">
+    <div className="grid gap-3">
       {lines.map((l) => (
-        <div key={l.k} className={`grid gap-2 ${withCost ? "sm:grid-cols-[1fr_140px_140px_auto]" : "sm:grid-cols-[1fr_140px_auto]"}`}>
-          <SearchPicker endpoint="/materials?status=ACTIVE" map={(r) => ({ id: String(r.id), label: String(r.name), sub: `${r.code} · ${(r.unit as { name: string })?.name ?? ""}` })} value={l.material} onChange={(v) => patch(l.k, { material: v })} placeholder={t("docs.material")} />
-          <Input type="number" dir="ltr" step="any" min={allowNegative ? undefined : 0} placeholder={qtyLabel ?? t("docs.qty")} value={l.quantity} onChange={(e) => patch(l.k, { quantity: e.target.value })} />
-          {withCost ? <Input type="number" dir="ltr" step="any" min={0} placeholder={costLabel ?? t("inventory.unitCost")} value={l.unitCost} onChange={(e) => patch(l.k, { unitCost: e.target.value })} /> : null}
-          <Button type="button" size="icon" variant="ghost" onClick={() => onChange(lines.filter((x) => x.k !== l.k))} aria-label={t("common.delete")}><Trash2 /></Button>
+        <div key={l.k} className="grid gap-3 rounded-2xl border bg-muted/20 p-4 sm:grid-cols-2 lg:grid-cols-4 lg:items-end">
+          <Field label={t("docs.material")} className="sm:col-span-2 lg:col-span-1">
+            <SearchPicker endpoint="/materials?status=ACTIVE" map={(r) => ({ id: String(r.id), label: String(r.name), sub: `${r.code} · ${(r.unit as { name: string })?.name ?? ""}` })} value={l.material} onChange={(v) => patch(l.k, { material: v })} placeholder={t("docs.material")} />
+          </Field>
+          <Field label={qtyLabel ?? t("docs.qty")}>
+            <Input type="number" dir="ltr" step="any" min={allowNegative ? undefined : 0} value={l.quantity} onChange={(e) => patch(l.k, { quantity: e.target.value })} />
+          </Field>
+          {withCost ? <Field label={costLabel ?? t("inventory.unitCost")}><Input type="number" dir="ltr" step="any" min={0} value={l.unitCost} onChange={(e) => patch(l.k, { unitCost: e.target.value })} /></Field> : null}
+          <Button type="button" size="icon" variant="ghost" className="justify-self-end" onClick={() => onChange(lines.filter((x) => x.k !== l.k))} aria-label={t("common.delete")}><Trash2 /></Button>
         </div>
       ))}
       <Button type="button" variant="outline" size="sm" className="justify-self-start" onClick={() => onChange([...lines, newLine()])}><Plus />{t("inventory.addLine")}</Button>
